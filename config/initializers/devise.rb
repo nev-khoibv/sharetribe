@@ -262,6 +262,8 @@ Devise.setup do |config|
                     authorize_url: "https://www.facebook.com/#{facebook_api_version}/dialog/oauth"
                   }
 
+  config.secret_key = 'c535b8c39b193f58c1e0b1a7f90e323490fde962765b1dcdc9ac7ede294a105686b933fffd02c8cb1f162bbdb51906e848c00a8bddb9388e1789cbe190876497'
+
   # ==> Warden configuration
   # see config/initializers/warden.rb
 end
