@@ -154,8 +154,8 @@ default: &default_settings
 
   # Facebook Connect
   # If you want to use Facebook connect, enter the credentials here
-  fb_connect_id:
-  fb_connect_secret:
+  fb_connect_id: 2227866264108426
+  fb_connect_secret: 0df197321e75aec879ec7bea6dc1bf49
 
   # You can use Airbrake to track errors if you want.
   # You need to register an account and get an API key from airbrake.io

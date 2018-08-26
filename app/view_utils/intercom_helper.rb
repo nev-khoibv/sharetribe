@@ -36,8 +36,13 @@ module IntercomHelper
       domain_regexp = /[^.]*\.([^.]*|..\...|...\...)$/
 
       match = domain_regexp.match(host_with_port)
+      puts "Try to find domain #{host_with_port} with regex #{domain_regexp}"
 
-      ".#{match[0].split(":")[0]}"
+      if not match.nil?
+        ".#{match[0].split(":")[0]}"
+      else
+        'localhost'
+      end
     end
 
     def self.intercom_shutdown(session, cookies, host_with_port)
@@ -160,7 +165,7 @@ module IntercomHelper
         "#{icons[:cross]} Identity verification FAILED"
       end
 
-    messages = verification_result[:results].map { |res|
+    messages = verification_result[:results].map {|res|
       result_msg =
 
         if res[:passed] == :passed
@@ -199,7 +204,7 @@ module IntercomHelper
     ] + verify_identity_information(intercom_user, db_identity_information.except(:info_email_confirmed))
 
     {
-      result: verification_results.reduce(:passed) { |a, e| new_overall_result(a, e[:passed]) },
+      result: verification_results.reduce(:passed) {|a, e| new_overall_result(a, e[:passed])},
       results: verification_results
     }
   end
@@ -232,7 +237,7 @@ module IntercomHelper
   def verify_email_confirmation(intercom_user, db_email_confirmed)
     custom_attributes = intercom_user.custom_attributes
 
-    verify_custom_attribute(:info_email_confirmed, db_email_confirmed, custom_attributes) { |db_value, intercom_value|
+    verify_custom_attribute(:info_email_confirmed, db_email_confirmed, custom_attributes) {|db_value, intercom_value|
       case [db_value, intercom_value]
       when [true, true]
         :passed
@@ -249,13 +254,13 @@ module IntercomHelper
   def verify_identity_information(intercom_user, db_identity_information)
     custom_attributes = intercom_user.custom_attributes
 
-    db_identity_information.map { |key, db_value|
+    db_identity_information.map {|key, db_value|
       verify_custom_attribute(key, db_value, custom_attributes)
     }
   end
 
   def verify_custom_attribute(key, db_value, custom_attributes, &block)
-    passed_lambda = block || ->(a, b) { a == b ? :passed : :failed }
+    passed_lambda = block || ->(a, b) {a == b ? :passed : :failed}
 
     intercom_value = custom_attributes[key]
     {
