@@ -59,6 +59,18 @@
     = form.label :password2, t('.password_again')
     = form.password_field :password2, :class => :text_field, :maxlength => "255"
 
+    -# Giáo dục
+    = form.label :education, t('common.education')
+    = form.text_field :education, :class => :text_field, :maxlength => "255"
+
+    -# Bằng cấp
+    = form.label :certification, t('common.certification')
+    = form.text_field :certification, :class => :text_field, :maxlength => "255"
+
+    -# Kinh nghiệm
+    = form.label :experience, t('common.experience')
+    = form.text_field :experience, :class => :text_field, :maxlength => "255"
+
     - if FeatureFlagHelper.feature_enabled?(:user_fields) && @service.has_person_custom_fields?
       - @service.custom_field_values.each_with_index do |custom_field_value, index|
         - custom_field = custom_field_value.question

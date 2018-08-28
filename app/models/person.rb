@@ -42,6 +42,9 @@
 #  min_days_between_community_updates :integer          default(1)
 #  deleted                            :boolean          default(FALSE)
 #  cloned_from                        :string(22)
+#  education                          :string(255)
+#  certification                      :string(255)
+#  experience                         :string(255)
 #
 # Indexes
 #
@@ -80,7 +83,8 @@ class Person < ApplicationRecord
   attr_accessor :guid, :password2, :form_login,
                 :form_given_name, :form_family_name, :form_password,
                 :form_password2, :form_email, :consent,
-                :input_again, :send_notifications
+                :input_again, :send_notifications,
+                :education, :certification, :experience
 
   # Virtual attribute for authenticating by either username or email
   # This is in addition to a real persisted field like 'username'
@@ -157,6 +161,9 @@ class Person < ApplicationRecord
   validates_length_of :given_name, :within => 1..30, :allow_nil => true, :allow_blank => true
   validates_length_of :family_name, :within => 1..30, :allow_nil => true, :allow_blank => true
   validates_length_of :display_name, :within => 1..30, :allow_nil => true, :allow_blank => true
+  validates_length_of :education, :within => 1..255, :allow_nil => true, :allow_blank => true
+  validates_length_of :certification, :within => 1..255, :allow_nil => true, :allow_blank => true
+  validates_length_of :experience, :within => 1..255, :allow_nil => true, :allow_blank => true
 
   validates_format_of :username,
                        :with => /\A[A-Z0-9_]*\z/i
