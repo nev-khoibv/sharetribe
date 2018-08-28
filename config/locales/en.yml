@@ -731,6 +731,9 @@ en:
     fields_that_are_mandatory: "Fields marked with star (*) are mandatory."
     or: or
     password: Password
+    education: Education
+    certification: Certification
+    experience: Experience
     service_name: "%{service_name}"
     share_types:
       request: request
